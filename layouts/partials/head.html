@@ -1,10 +1,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta
-    name="viewport"
-    content="width=device-width, initial-scale=1, shrink-to-fit=no"
-  />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 
   <!-- Title -->
   <title>{{ if not .IsHome }}{{ .Title }} - {{ end }}{{ site.Title }}</title>
@@ -19,12 +16,18 @@
   <meta name="author" content="{{ or .Params.author $site_author }}" />
   {{ else }}
   <!---->
-  <meta
-    name="description"
-    content="{{ site.Params.description | default (print `A personal blog`) }}"
-  />
+  <meta name="description" content="{{ site.Params.description | default (print `A personal blog`) }}" />
   <meta name="author" content="{{ $site_author }}" />
   {{ end }}
+
+  {{ $built := resources.Get "js/main.js" | js.Build "main.js"}}
+
+
+  <script defer src="{{$built.RelPermalink}}" defer></script>
+
+
+
+
 
   <!-- Styles & Scripts -->
   {{ $main_css := resources.Get "main.css" }}
@@ -36,11 +39,7 @@
   <link rel="preload stylesheet" as="style" href="{{ $css.Permalink }}" />
 
   {{ if and .IsPage (not site.Params.disableHLJS) }}
-  <script
-    defer
-    src="{{ `highlight.min.js` | absURL }}"
-    onload="hljs.initHighlightingOnLoad();"
-  ></script>
+  <script defer src="{{ `highlight.min.js` | absURL }}" onload="hljs.initHighlightingOnLoad();"></script>
   {{ end }}
 
   <!-- Preload -->
@@ -68,12 +67,7 @@
 
   <!-- RSS -->
   {{ range .AlternativeOutputFormats }}
-  <link
-    rel="{{ .Rel }}"
-    type="{{ .MediaType.Type }}"
-    href="{{ .Permalink }}"
-    title="{{ site.Title }}"
-  />
+  <link rel="{{ .Rel }}" type="{{ .MediaType.Type }}" href="{{ .Permalink }}" title="{{ site.Title }}" />
   {{ end }}
 
   <!-- Misc -->
@@ -83,7 +77,6 @@
   <!---->
   {{ template "_internal/google_analytics.html" . }}
   <!---->
-  {{ template "_internal/google_news.html" . }}
   <!---->
   {{ template "_internal/opengraph.html" . }}
   <!---->
