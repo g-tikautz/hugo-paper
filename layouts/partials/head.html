@@ -23,7 +23,7 @@
   {{ $built := resources.Get "js/main.js" | js.Build "main.js"}}
 
 
-  <script defer src="{{$built.RelPermalink}}" defer></script>
+  <script type="text/javascript" src="{{$built.RelPermalink}}" defer></script>
 
 
 
